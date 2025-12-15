@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Mani 🫶💛</title>
+    <title>For Mani 💛</title>
     <style>
         * {
             margin: 0;
@@ -273,6 +273,167 @@
             font-weight: bold;
         }
 
+        .game-button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            color: #2d3436;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .game-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .game-container {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .game-container.show {
+            display: block;
+            animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-header h2 {
+            font-size: 2.5em;
+            color: #feca57;
+            margin-bottom: 10px;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            color: #2d3436;
+            font-weight: bold;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hole {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.2);
+            cursor: none;
+        }
+
+        .mole {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 0.2s ease;
+            cursor: none;
+        }
+
+        .mole.up {
+            top: 10%;
+        }
+
+        .mole-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border: 3px solid white;
+            transition: transform 0.2s ease;
+        }
+
+        .mole-image.hit {
+            animation: popOut 0.4s ease-out forwards;
+        }
+
+        @keyframes popOut {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.5) rotate(15deg);
+            }
+            100% {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .game-message {
+            text-align: center;
+            font-size: 1.5em;
+            color: #feca57;
+            min-height: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .game-over {
+            display: none;
+            text-align: center;
+        }
+
+        .game-over.show {
+            display: block;
+        }
+
+        .game-over h3 {
+            font-size: 2em;
+            color: #feca57;
+            margin-bottom: 20px;
+        }
+
+        .game-over p {
+            font-size: 1.5em;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .play-again-btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            color: #2d3436;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+        }
+
         .revealed-messages {
             max-width: 600px;
             margin: 30px auto;
@@ -381,7 +542,7 @@
     </div>
     
     <div class="container">
-        <h1>Dear Mani 🫶💛</h1>
+        <h1>Dear Mani 💛</h1>
         <p class="subtitle">Click on each heart to reveal my message...</p>
         
         <div class="heart-container" id="heartContainer">
@@ -411,7 +572,7 @@
             <h2>Will you go on a date with me? 💛</h2>
             <p>Hey Mani, I truly love you. You're close to my heart and I'm attached to you. You're the prettiest and bestest friend of mine that I can ever imagine of.</p>
             <p>I don't want to lose you. All I want is for you to stay with me cuz you're sooo understanding and you care for me.</p>
-            <p>Together we both can grow and both can create alot of memories... I mean alottttt! 🫶💛</p>
+            <p>Together we both can grow and both can create alot of memories... I mean alottttt! 😊</p>
             <p>I'm ending my para here cause it's gonna be long.</p>
             <p><strong>So, Mani... what do you say?</strong></p>
             
@@ -421,6 +582,74 @@
             </div>
             
             <p class="signature">- Abhimanyu 💛</p>
+            
+            <button class="game-button" onclick="startGame()">Missing me? Play game 😋</button>
+        </div>
+
+        <div class="game-container" id="gameContainer">
+            <div class="game-header">
+                <h2>Whack-a-Abhimanyu! 🔨💛</h2>
+                <div class="game-stats">
+                    <div>Score: <span id="score">0</span></div>
+                    <div>Time: <span id="timer">30</span>s</div>
+                </div>
+                <div class="game-message" id="gameMessage">Click on Abhimanyu when he pops up! 😋</div>
+            </div>
+            
+            <div class="game-board" id="gameBoard">
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-over" id="gameOver">
+                <h3>Game Over! 🎉</h3>
+                <p>Your Score: <span id="finalScore">0</span></p>
+                <p id="scoreMessage"></p>
+                <button class="play-again-btn" onclick="resetGame()">Play Again! 😋</button>
+            </div>
         </div>
     </div>
 
@@ -577,6 +806,126 @@
         // Initial hearts
         for (let i = 0; i < 10; i++) {
             setTimeout(createBgHeart, i * 200);
+        }
+
+        // Game variables
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let moleInterval;
+        let isGameActive = false;
+
+        function startGame() {
+            document.getElementById('gameContainer').classList.add('show');
+            document.getElementById('gameContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Reset game
+            score = 0;
+            timeLeft = 30;
+            isGameActive = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('gameMessage').textContent = "Click on Abhimanyu when he pops up! 😋";
+            document.getElementById('gameBoard').style.display = 'grid';
+            document.getElementById('gameOver').classList.remove('show');
+            
+            // Start timer
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+            
+            // Start popping moles (slower interval for easier gameplay)
+            popRandomMole();
+            moleInterval = setInterval(popRandomMole, 1100);
+        }
+
+        function popRandomMole() {
+            if (!isGameActive) return;
+            
+            // Hide all moles
+            const moles = document.querySelectorAll('.mole');
+            moles.forEach(mole => mole.classList.remove('up'));
+            
+            // Pop random mole
+            const randomIndex = Math.floor(Math.random() * moles.length);
+            moles[randomIndex].classList.add('up');
+            
+            // Auto hide after a longer delay (easier to hit)
+            setTimeout(() => {
+                moles[randomIndex].classList.remove('up');
+            }, 1200);
+        }
+
+        function whackMole(mole) {
+            if (!isGameActive || !mole.classList.contains('up')) return;
+            
+            score++;
+            document.getElementById('score').textContent = score;
+            
+            // Add pop-out animation to the mole image
+            const moleImage = mole.querySelector('.mole-image');
+            moleImage.classList.add('hit');
+            
+            // Remove the mole after animation
+            setTimeout(() => {
+                mole.classList.remove('up');
+                moleImage.classList.remove('hit');
+            }, 400);
+            
+            // Show fun messages
+            const messages = [
+                "Gotcha! 😂",
+                "Nice hit! 💛",
+                "Ouch! 😅",
+                "Too fast! 😋",
+                "Perfect! 🎯",
+                "Boom! 💥"
+            ];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('gameMessage').textContent = randomMessage;
+            
+            // Create hit effect
+            for (let i = 0; i < 6; i++) {
+                createSparkle(mole, i);
+            }
+        }
+
+        function endGame() {
+            isGameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(moleInterval);
+            
+            // Hide all moles
+            const moles = document.querySelectorAll('.mole');
+            moles.forEach(mole => mole.classList.remove('up'));
+            
+            // Show game over screen
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('finalScore').textContent = score;
+            
+            // Score messages
+            let scoreMessage = "";
+            if (score >= 30) {
+                scoreMessage = "Wow! You're amazing! 🏆💛";
+            } else if (score >= 20) {
+                scoreMessage = "Great job! You got me good! 😄💛";
+            } else if (score >= 10) {
+                scoreMessage = "Not bad! Keep practicing! 😊";
+            } else {
+                scoreMessage = "Aww, I'm too fast for you! 😋";
+            }
+            document.getElementById('scoreMessage').textContent = scoreMessage;
+            
+            document.getElementById('gameOver').classList.add('show');
+        }
+
+        function resetGame() {
+            startGame();
         }
     </script>
 </body>
