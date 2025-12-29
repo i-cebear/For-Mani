@@ -114,6 +114,12 @@
             z-index: 100;
         }
 
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
         .heart-container {
             position: relative;
             min-height: 300px;
@@ -166,11 +172,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(45deg);
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #2d3436;
+            font-size: 1.5em;
             z-index: 5;
-            white-space: nowrap;
             pointer-events: none;
         }
 
@@ -215,10 +218,46 @@
         .heart:nth-child(5) { animation-delay: 0.8s; }
         .heart:nth-child(6) { animation-delay: 1s; }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
+        .revealed-messages {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .message-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
+            animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes slideInBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.8) rotate(-5deg);
             }
+            60% {
+                transform: translateY(-10px) scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+        }
+
+        .message-card h3 {
+            color: #feca57;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .message-card p {
+            color: #2d3436;
+            font-size: 1.2em;
+            line-height: 1.6;
         }
 
         .final-message {
@@ -273,6 +312,121 @@
             font-weight: bold;
         }
 
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .bg-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(-45deg);
+            animation: floatUp 10s infinite ease-in;
+        }
+
+        .bg-heart::before,
+        .bg-heart::after {
+            content: "";
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .bg-heart::before {
+            top: -15px;
+            left: 0;
+        }
+
+        .bg-heart::after {
+            left: 15px;
+            top: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -50px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                bottom: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* NEW YEAR COUNTDOWN STYLES */
+        .countdown-section {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.8s ease;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .countdown-section.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .countdown-section h2 {
+            font-size: 2.5em;
+            color: #feca57;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 25px 20px;
+            border-radius: 15px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .time-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2d3436;
+            display: block;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 1em;
+            color: #636e72;
+            text-transform: uppercase;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* GAME STYLES */
         .game-button {
             margin-top: 30px;
             padding: 15px 40px;
@@ -282,7 +436,7 @@
             border: none;
             border-radius: 50px;
             font-weight: bold;
-            cursor: none;
+            cursor: pointer;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
@@ -342,7 +496,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: inset 0 5px 15px rgba(0,0,0,0.2);
-            cursor: none;
+            cursor: pointer;
         }
 
         .mole {
@@ -353,7 +507,7 @@
             left: 50%;
             transform: translateX(-50%);
             transition: top 0.2s ease;
-            cursor: none;
+            cursor: pointer;
         }
 
         .mole.up {
@@ -425,7 +579,7 @@
             border: none;
             border-radius: 50px;
             font-weight: bold;
-            cursor: none;
+            cursor: pointer;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
@@ -434,102 +588,264 @@
             transform: scale(1.05);
         }
 
-        .revealed-messages {
-            max-width: 600px;
-            margin: 30px auto;
+        /* GIFT SECTION STYLES */
+        .gift-section {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.8s ease;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 40px auto;
         }
 
-        .message-card {
-            background: white;
-            padding: 25px;
+        .gift-section.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gift-section h2 {
+            font-size: 2.5em;
+            color: #feca57;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .gift-section > p {
+            text-align: center;
+            color: #636e72;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .gifts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .gift-box {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-wrap {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
             border-radius: 15px;
-            margin-bottom: 20px;
+            position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: translateY(30px) scale(0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            transition: all 0.3s ease;
+        }
+
+        .gift-wrap::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: white;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .gift-wrap::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            background: white;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .gift-emoji {
+            position: relative;
+            z-index: 2;
+        }
+
+        .gift-label {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #2d3436;
+            font-weight: bold;
+        }
+
+        .gift-box.opened .gift-wrap {
+            animation: unwrap 0.8s ease forwards;
+        }
+
+        @keyframes unwrap {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
+            100% {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .gift-content {
+            display: none;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+        }
+
+        .gift-content.show {
+            display: block;
             animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
         }
 
-        @keyframes slideInBounce {
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.8) rotate(-5deg);
-            }
-            60% {
-                transform: translateY(-10px) scale(1.05) rotate(2deg);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1) rotate(0deg);
-            }
+        .gift-content video {
+            /* preserve original aspect ratio and prevent stretching */
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 60vh;
+            border-radius: 10px;
+            background: #000;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
         }
 
-        .message-card h3 {
-            color: #feca57;
-            font-size: 1.1em;
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1em;
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #dee2e6;
+        }
+
+        .video-placeholder strong {
+            font-size: 1.2em;
+            color: #495057;
             margin-bottom: 10px;
         }
 
-        .message-card p {
+        .gift-content p {
+            margin-top: 15px;
+            text-align: center;
+            color: #636e72;
+            font-style: italic;
+        }
+
+        /* MORE COMING SOON */
+        .more-coming {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s ease;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 18px 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3d1 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            z-index: 50;
+        }
+
+        .more-coming.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .typewriter {
+            overflow: hidden;
+        }
+
+        .typewriter-text {
+            display: inline-block;
+            white-space: nowrap;
+            width: 0;
+            border-right: .14em solid #feca57;
             color: #2d3436;
             font-size: 1.2em;
-            line-height: 1.6;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
         }
 
-        .floating-hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            pointer-events: none;
+        .more-coming.show .typewriter-text {
+            animation: typing 4s steps(40, end) forwards, blink .75s step-end infinite;
         }
 
-        .bg-heart {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(-45deg);
-            animation: floatUp 10s infinite ease-in;
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
-        .bg-heart::before,
-        .bg-heart::after {
-            content: "";
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            position: absolute;
+        @keyframes blink {
+            50% { border-color: transparent; }
         }
 
-        .bg-heart::before {
-            top: -15px;
-            left: 0;
+        .more-apology {
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #2d3436;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.8s forwards;
         }
 
-        .bg-heart::after {
-            left: 15px;
-            top: 0;
-        }
-
-        @keyframes floatUp {
-            0% {
-                bottom: -50px;
-                opacity: 0;
-            }
-            10% {
+        @keyframes fadeInUp {
+            to {
                 opacity: 1;
+                transform: translateY(0);
             }
-            90% {
-                opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
             }
-            100% {
-                bottom: 100%;
-                opacity: 0;
+            .time-unit {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            .time-number {
+                font-size: 2em;
+            }
+            .gifts-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+            .gift-wrap {
+                width: 150px;
+                height: 150px;
             }
         }
     </style>
@@ -586,70 +902,115 @@
             <button class="game-button" onclick="startGame()">Missing me? Play game 😋</button>
         </div>
 
-        <div class="game-container" id="gameContainer">
-            <div class="game-header">
-                <h2>Whack-a-Abhimanyu! 🔨💛</h2>
-                <div class="game-stats">
-                    <div>Score: <span id="score">0</span></div>
-                    <div>Time: <span id="timer">30</span>s</div>
+        <!-- NEW YEAR COUNTDOWN SECTION -->
+        <div class="countdown-section" id="countdownSection">
+            <h2>Counting Down to 2026 🎆</h2>
+            <div class="countdown-timer">
+                <div class="time-unit">
+                    <span class="time-number" id="days">00</span>
+                    <div class="time-label">Days</div>
                 </div>
-                <div class="game-message" id="gameMessage">Click on Abhimanyu when he pops up! 😋</div>
-            </div>
-            
-            <div class="game-board" id="gameBoard">
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
+                <div class="time-unit">
+                    <span class="time-number" id="hours">00</span>
+                    <div class="time-label">Hours</div>
                 </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
+                <div class="time-unit">
+                    <span class="time-number" id="minutes">00</span>
+                    <div class="time-label">Minutes</div>
                 </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
-                </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
-                </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
-                </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
-                </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
-                </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
-                </div>
-                <div class="hole">
-                    <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
-                    </div>
+                <div class="time-unit">
+                    <span class="time-number" id="seconds">00</span>
+                    <div class="time-label">Seconds</div>
                 </div>
             </div>
+        </div>
 
-            <div class="game-over" id="gameOver">
-                <h3>Game Over! 🎉</h3>
-                <p>Your Score: <span id="finalScore">0</span></p>
-                <p id="scoreMessage"></p>
-                <button class="play-again-btn" onclick="resetGame()">Play Again! 😋</button>
+        <!-- GIFT SECTION -->
+        <div class="gift-section" id="giftSection">
+            <h2>Unwrap Your Gifts 🎁</h2>
+            <p>I made these edits for you! Click each gift to open 💛</p>
+            <div class="gifts-container">
+                <div class="gift-box" onclick="openGift(this, 1)">
+                    <div class="gift-wrap">
+                        <div class="gift-emoji">🎁</div>
+                    </div>
+                    <div class="gift-label">Gift 1</div>
+                    <div class="gift-content">
+                        <video class="gift-video" controls preload="metadata">
+                            <source src="edit1.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="edit1.mp4" download>here</a>.
+                        </video>
+                    </div>
+                </div>
+                <div class="gift-box" onclick="openGift(this, 2)">
+                    <div class="gift-wrap">
+                        <div class="gift-emoji">🎁</div>
+                    </div>
+                    <div class="gift-label">Gift 2</div>
+                    <div class="gift-content">
+                        <video class="gift-video" controls preload="metadata">
+                            <source src="edit2.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Download <a href="edit2.mp4" download>edit2.mp4</a>.
+                        </video>
+                    </div>
+                </div>
+                <div class="gift-box" onclick="openGift(this, 3)">
+                    <div class="gift-wrap">
+                        <div class="gift-emoji">🎁</div>
+                    </div>
+                    <div class="gift-label">Gift 3</div>
+                    <div class="gift-content">
+                        <video class="gift-video" controls preload="metadata">
+                            <source src="edit3.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Download <a href="edit3.mp4" download>edit3.mp4</a>.
+                        </video>
+                    </div>
+                </div>
+                <div class="gift-box" onclick="openGift(this, 4)">
+                    <div class="gift-wrap">
+                        <div class="gift-emoji">🎁</div>
+                    </div>
+                    <div class="gift-label">Gift 4</div>
+                    <div class="gift-content">
+                        <video class="gift-video" controls preload="metadata">
+                            <source src="edit4.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Download <a href="edit4.mp4" download>edit4.mp4</a>.
+                        </video>
+                    </div>
+                </div>
+                <div class="gift-box" onclick="openGift(this, 5)">
+                    <div class="gift-wrap">
+                        <div class="gift-emoji">🎁</div>
+                    </div>
+                    <div class="gift-label">Gift 5</div>
+                    <div class="gift-content">
+                        <video class="gift-video" controls preload="metadata">
+                            <source src="edit5.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Download <a href="edit5.mp4" download>edit5.mp4</a>.
+                        </video>
+                    </div>
+                </div>
+                <div class="gift-box" onclick="openGift(this, 6)">
+                    <div class="gift-wrap">
+                        <div class="gift-emoji">🎁</div>
+                    </div>
+                    <div class="gift-label">Gift 6</div>
+                    <div class="gift-content">
+                        <video class="gift-video" controls preload="metadata">
+                            <source src="edit6.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Download <a href="edit6.mp4" download>edit6.mp4</a>.
+                        </video>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- MORE COMING SOON SECTION -->
+        <div class="more-coming" id="moreComingSoon" aria-live="polite">
+            <div class="typewriter">
+                <div class="typewriter-text">More coming soon — till then, miss me ..........</div>
+            </div>
+            <p class="more-apology">And i'm really very sorry mani ik these are not gifts these are so pyaare pyaare edits but now take these as a gift and yeah wait till new year and yeah game khelo badiya i miss you so much</p>
         </div>
     </div>
 
@@ -665,6 +1026,7 @@
 
         let clickedCount = 0;
         const totalHearts = 6;
+        let countdownStarted = false;
 
         // Custom cursor tracking
         const cursor = document.getElementById('customCursor');
@@ -678,14 +1040,12 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Create sparkle trail
             sparkleTimer++;
             if (sparkleTimer % 3 === 0) {
                 createCursorSparkle(e.clientX, e.clientY);
             }
         });
 
-        // Smooth cursor follow
         function animateCursor() {
             cursorX += (mouseX - cursorX) * 0.2;
             cursorY += (mouseY - cursorY) * 0.2;
@@ -720,12 +1080,10 @@
             element.classList.add('clicked');
             clickedCount++;
             
-            // Create sparkle effect
             for (let i = 0; i < 8; i++) {
                 createSparkle(element, i);
             }
             
-            // Create and show message card with delay
             setTimeout(() => {
                 const messageCard = document.createElement('div');
                 messageCard.className = 'message-card';
@@ -735,7 +1093,6 @@
                 `;
                 document.getElementById('revealedMessages').appendChild(messageCard);
                 
-                // Smooth scroll to the new message
                 setTimeout(() => {
                     messageCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 100);
@@ -750,10 +1107,35 @@
                     setTimeout(() => {
                         document.getElementById('finalMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 100);
+
+                    // Show countdown after 2 seconds
+                    setTimeout(() => {
+                        document.getElementById('countdownSection').classList.add('show');
+                        startCountdown();
+                        setTimeout(() => {
+                            document.getElementById('countdownSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    }, 2000);
+
+                    // Show gifts after 4 seconds
+                    setTimeout(() => {
+                        document.getElementById('giftSection').classList.add('show');
+                        setTimeout(() => {
+                            document.getElementById('giftSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    }, 4000);
+
+                    // Show more coming soon section after gifts
+                    setTimeout(() => {
+                        document.getElementById('moreComingSoon').classList.add('show');
+                        setTimeout(() => {
+                            document.getElementById('moreComingSoon').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                    }, 6000);
                 }, 1500);
             }
         }
-        
+
         function createSparkle(parent, index) {
             const sparkle = document.createElement('div');
             sparkle.style.position = 'absolute';
@@ -786,6 +1168,41 @@
             setTimeout(() => sparkle.remove(), 800);
         }
 
+        // NEW YEAR COUNTDOWN FUNCTION
+        function startCountdown() {
+            if (countdownStarted) return;
+            countdownStarted = true;
+
+            const newYear = new Date('January 1, 2026 00:00:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = newYear - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.querySelector('.countdown-section h2').textContent = 'Happy New Year 2026! 🎉';
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                }
+            }
+
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
         // Create floating background hearts
         function createBgHeart() {
             const heart = document.createElement('div');
@@ -800,15 +1217,12 @@
             }, 13000);
         }
 
-        // Generate background hearts periodically
         setInterval(createBgHeart, 800);
-        
-        // Initial hearts
         for (let i = 0; i < 10; i++) {
             setTimeout(createBgHeart, i * 200);
         }
 
-        // Game variables
+        // GAME VARIABLES AND FUNCTIONS
         let score = 0;
         let timeLeft = 30;
         let gameInterval;
@@ -839,7 +1253,7 @@
                 }
             }, 1000);
             
-            // Start popping moles (slower interval for easier gameplay)
+            // Start popping moles
             popRandomMole();
             moleInterval = setInterval(popRandomMole, 1100);
         }
@@ -855,7 +1269,7 @@
             const randomIndex = Math.floor(Math.random() * moles.length);
             moles[randomIndex].classList.add('up');
             
-            // Auto hide after a longer delay (easier to hit)
+            // Auto hide after longer delay
             setTimeout(() => {
                 moles[randomIndex].classList.remove('up');
             }, 1200);
@@ -867,7 +1281,7 @@
             score++;
             document.getElementById('score').textContent = score;
             
-            // Add pop-out animation to the mole image
+            // Add pop-out animation
             const moleImage = mole.querySelector('.mole-image');
             moleImage.classList.add('hit');
             
@@ -927,6 +1341,119 @@
         function resetGame() {
             startGame();
         }
+
+        // GIFT OPENING FUNCTION
+        function openGift(giftBox, giftNum) {
+            if (giftBox.classList.contains('opened')) return;
+
+            // Pause any other gift videos so only the selected one plays
+            document.querySelectorAll('.gift-video').forEach(v => {
+                if (!giftBox.contains(v)) {
+                    try {
+                        v.pause();
+                        v.currentTime = 0;
+                        v.muted = false; // reset mute state for other videos
+                    } catch (e) {}
+                }
+            });
+
+            // Mark as opened
+            giftBox.classList.add('opened');
+
+            // Create sparkle effect when opening
+            for (let i = 0; i < 12; i++) {
+                createGiftSparkle(giftBox, i);
+            }
+
+            const content = giftBox.querySelector('.gift-content');
+            const video = content ? content.querySelector('.gift-video') : null;
+
+            // Attempt to start playback immediately (within the click handler so it's a user gesture)
+            if (video) {
+                video.setAttribute('playsinline', '');
+                if (!video.getAttribute('preload') || video.getAttribute('preload') === 'metadata') {
+                    video.setAttribute('preload', 'auto');
+                    video.preload = 'auto';
+                }
+                try { video.load(); } catch (e) {}
+
+                try {
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                            // If blocked, mute and retry immediately
+                            video.muted = true;
+                            video.play().catch(() => {});
+                        });
+                    }
+                } catch (e) {
+                    // synchronous failure, try mute + play
+                    try { video.muted = true; video.play().catch(() => {}); } catch (e) {}
+                }
+            }
+
+            // Show content after unwrap animation and retry play once visible
+            setTimeout(() => {
+                if (content) {
+                    content.classList.add('show');
+                    setTimeout(() => {
+                        content.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+
+                    if (video && video.paused) {
+                        const retry = video.play();
+                        if (retry !== undefined) {
+                            retry.catch(() => {
+                                video.muted = true;
+                                video.play().catch(() => {});
+                            });
+                        }
+                    }
+                }
+            }, 800);
+        }
+
+        function createGiftSparkle(parent, index) {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'fixed';
+            sparkle.style.width = '12px';
+            sparkle.style.height = '12px';
+            sparkle.style.background = '#feca57';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '10000';
+            sparkle.style.boxShadow = '0 0 10px #feca57';
+            
+            const rect = parent.querySelector('.gift-wrap').getBoundingClientRect();
+            sparkle.style.left = rect.left + rect.width / 2 + 'px';
+            sparkle.style.top = rect.top + rect.height / 2 + 'px';
+            
+            document.body.appendChild(sparkle);
+            
+            const angle = (index / 12) * Math.PI * 2;
+            const distance = 80 + Math.random() * 40;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            sparkle.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
+            });
+            
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        // Ensure gift videos are prepared for autoplay
+        document.querySelectorAll('.gift-video').forEach(video => {
+            video.setAttribute('playsinline', '');
+            if (!video.getAttribute('preload') || video.getAttribute('preload') === 'metadata') {
+                video.setAttribute('preload', 'auto');
+                video.preload = 'auto';
+            }
+        });
     </script>
 </body>
 </html>
