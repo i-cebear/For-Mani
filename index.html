@@ -270,6 +270,8 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             max-width: 500px;
             margin: 0 auto;
+            position: relative;
+            z-index: 100;
         }
 
         .final-message.show {
@@ -459,6 +461,8 @@
         .game-container.show {
             display: block;
             animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            position: relative;
+            z-index: 150;
         }
 
         .game-header {
@@ -899,8 +903,8 @@
             
             <p class="signature">- Abhimanyu 💛</p>
             
-            <button class="game-button" onclick="startGame()">Missing me? Play game 😋</button>
-        </div>
+            <button id="playGameBtn" class="game-button">Missing me? Play game 😋</button>
+         </div>
 
         <!-- NEW YEAR COUNTDOWN SECTION -->
         <div class="countdown-section" id="countdownSection">
@@ -1011,6 +1015,73 @@
                 <div class="typewriter-text">More coming soon — till then, miss me ..........</div>
             </div>
             <p class="more-apology">And i'm really very sorry mani ik these are not gifts these are so pyaare pyaare edits but now take these as a gift and yeah wait till new year and yeah game khelo badiya i miss you so much</p>
+        </div>
+
+        <!-- GAME SECTION -->
+        <div class="game-container" id="gameContainer" aria-hidden="true">
+            <div class="game-header">
+                <h2>Whack-a-Abhimanyu! 🔨💛</h2>
+                <div class="game-stats">
+                    <div>Score: <span id="score">0</span></div>
+                    <div>Time: <span id="timer">30</span>s</div>
+                </div>
+                <div class="game-message" id="gameMessage">Click on Abhimanyu when he pops up! 😋</div>
+            </div>
+
+            <div class="game-board" id="gameBoard">
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+                <div class="hole">
+                    <div class="mole" onclick="whackMole(this)">
+                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-over" id="gameOver">
+                <h3>Game Over! 🎉</h3>
+                <p>Your Score: <span id="finalScore">0</span></p>
+                <p id="scoreMessage"></p>
+                <button class="play-again-btn" onclick="resetGame()">Play Again! 😋</button>
+            </div>
         </div>
     </div>
 
@@ -1230,32 +1301,37 @@
         let isGameActive = false;
 
         function startGame() {
+            // Prevent duplicate starts and clear any existing intervals
+            if (isGameActive) return;
+            try { clearInterval(gameInterval); } catch (e) {}
+            try { clearInterval(moleInterval); } catch (e) {}
+            isGameActive = true;
+
             document.getElementById('gameContainer').classList.add('show');
             document.getElementById('gameContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
             
             // Reset game
             score = 0;
             timeLeft = 30;
-            isGameActive = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('timer').textContent = timeLeft;
-            document.getElementById('gameMessage').textContent = "Click on Abhimanyu when he pops up! 😋";
-            document.getElementById('gameBoard').style.display = 'grid';
-            document.getElementById('gameOver').classList.remove('show');
-            
-            // Start timer
-            gameInterval = setInterval(() => {
-                timeLeft--;
-                document.getElementById('timer').textContent = timeLeft;
-                
-                if (timeLeft <= 0) {
-                    endGame();
-                }
-            }, 1000);
-            
-            // Start popping moles
-            popRandomMole();
-            moleInterval = setInterval(popRandomMole, 1100);
+             document.getElementById('score').textContent = score;
+             document.getElementById('timer').textContent = timeLeft;
+             document.getElementById('gameMessage').textContent = "Click on Abhimanyu when he pops up! 😋";
+             document.getElementById('gameBoard').style.display = 'grid';
+             document.getElementById('gameOver').classList.remove('show');
+             
+             // Start timer
+             gameInterval = setInterval(() => {
+                 timeLeft--;
+                 document.getElementById('timer').textContent = timeLeft;
+                 
+                 if (timeLeft <= 0) {
+                     endGame();
+                 }
+             }, 1000);
+             
+             // Start popping moles
+             popRandomMole();
+             moleInterval = setInterval(popRandomMole, 1100);
         }
 
         function popRandomMole() {
@@ -1454,6 +1530,44 @@
                 video.preload = 'auto';
             }
         });
+
+        // Ensure play button is reliably hooked (handles cases where inline handlers fail)
+        const playBtn = document.getElementById('playGameBtn');
+        if (playBtn) {
+            playBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Prefer the defined startGame, but fallback to a safe initializer if it's missing
+                if (typeof startGame === 'function') {
+                    try { startGame(); } catch (err) {
+                        console.error('startGame error', err);
+                        fallbackStartGame();
+                    }
+                } else {
+                    console.warn('startGame not defined, using fallback');
+                    fallbackStartGame();
+                }
+            });
+        }
+
+        function fallbackStartGame() {
+            try {
+                clearInterval(gameInterval);
+                clearInterval(moleInterval);
+            } catch (e) {}
+            document.getElementById('gameContainer').classList.add('show');
+            document.getElementById('gameBoard').style.display = 'grid';
+            score = 0; timeLeft = 30; isGameActive = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('gameOver').classList.remove('show');
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+            popRandomMole();
+            moleInterval = setInterval(popRandomMole, 1100);
+        }
     </script>
 </body>
 </html>
