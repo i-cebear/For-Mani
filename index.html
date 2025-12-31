@@ -270,8 +270,6 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             max-width: 500px;
             margin: 0 auto;
-            position: relative;
-            z-index: 100;
         }
 
         .final-message.show {
@@ -461,8 +459,6 @@
         .game-container.show {
             display: block;
             animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-            position: relative;
-            z-index: 150;
         }
 
         .game-header {
@@ -724,16 +720,9 @@
         }
 
         .gift-content video {
-            /* preserve original aspect ratio and prevent stretching */
-            width: auto;
-            max-width: 100%;
-            height: auto;
-            max-height: 60vh;
+            width: 100%;
             border-radius: 10px;
             background: #000;
-            display: block;
-            margin: 0 auto;
-            object-fit: contain;
         }
 
         .video-placeholder {
@@ -765,71 +754,155 @@
             font-style: italic;
         }
 
-        /* MORE COMING SOON */
-        .more-coming {
-            display: none;
+        /* MESSAGE SECTION STYLES */
+        .message-section {
             opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.6s ease;
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 18px 24px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #fff9e6 0%, #fff3d1 100%);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
-            z-index: 50;
+            transform: scale(0);
+            transition: all 0.8s ease;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin: 40px auto;
         }
 
-        .more-coming.show {
-            display: block;
+        .message-section.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
-        .typewriter {
-            overflow: hidden;
+        .message-section h2 {
+            font-size: 2.5em;
+            color: #feca57;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
-        .typewriter-text {
-            display: inline-block;
-            white-space: nowrap;
-            width: 0;
-            border-right: .14em solid #feca57;
+        .message-from-me {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .message-from-me h3 {
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .message-from-me .message-text {
             color: #2d3436;
             font-size: 1.2em;
-            font-weight: 600;
-            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            text-align: center;
+            font-style: italic;
         }
 
-        .more-coming.show .typewriter-text {
-            animation: typing 4s steps(40, end) forwards, blink .75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        .more-apology {
-            margin-top: 15px;
+        .message-placeholder {
+            color: #636e72;
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            border: 2px dashed #fdcb6e;
             font-size: 1.1em;
-            color: #2d3436;
-            line-height: 1.4;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: fadeInUp 0.8s forwards;
         }
 
-        @keyframes fadeInUp {
-            to {
+        /* NEW YEAR CELEBRATION STYLES */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        .celebration-overlay.active {
+            display: block;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: fireworkExplode 1.5s ease-out forwards;
+        }
+
+        @keyframes fireworkExplode {
+            0% {
+                transform: translate(0, 0) scale(1);
                 opacity: 1;
-                transform: translateY(0);
             }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .celebration-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            z-index: 10000;
+            pointer-events: none;
+            display: none;
+        }
+
+        .celebration-message.show {
+            display: block;
+            animation: celebrationPop 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+
+        @keyframes celebrationPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(-10deg);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .celebration-message h1 {
+            font-size: 3em;
+            color: #2d3436;
+            margin: 0;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         @media (max-width: 768px) {
@@ -850,6 +923,12 @@
             .gift-wrap {
                 width: 150px;
                 height: 150px;
+            }
+            .celebration-message h1 {
+                font-size: 2em;
+            }
+            .celebration-message {
+                padding: 30px 40px;
             }
         }
     </style>
@@ -903,8 +982,8 @@
             
             <p class="signature">- Abhimanyu 💛</p>
             
-            <button id="playGameBtn" class="game-button">Missing me? Play game 😋</button>
-         </div>
+            <button class="game-button" onclick="startGame()">Missing me? Play game 😋</button>
+        </div>
 
         <!-- NEW YEAR COUNTDOWN SECTION -->
         <div class="countdown-section" id="countdownSection">
@@ -940,9 +1019,9 @@
                     </div>
                     <div class="gift-label">Gift 1</div>
                     <div class="gift-content">
-                        <video class="gift-video" controls preload="metadata">
-                            <source src="edit1.mp4" type="video/mp4">
-                            Your browser does not support the video tag. You can download the video <a href="edit1.mp4" download>here</a>.
+                        <video class="gift-video" controls preload="auto" playsinline>
+                            <source src="../edit1.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="../edit1.mp4" download>here</a>.
                         </video>
                     </div>
                 </div>
@@ -952,9 +1031,9 @@
                     </div>
                     <div class="gift-label">Gift 2</div>
                     <div class="gift-content">
-                        <video class="gift-video" controls preload="metadata">
-                            <source src="edit2.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Download <a href="edit2.mp4" download>edit2.mp4</a>.
+                        <video class="gift-video" controls preload="auto" playsinline>
+                            <source src="../edit2.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="../edit2.mp4" download>here</a>.
                         </video>
                     </div>
                 </div>
@@ -964,9 +1043,9 @@
                     </div>
                     <div class="gift-label">Gift 3</div>
                     <div class="gift-content">
-                        <video class="gift-video" controls preload="metadata">
-                            <source src="edit3.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Download <a href="edit3.mp4" download>edit3.mp4</a>.
+                        <video class="gift-video" controls preload="auto" playsinline>
+                            <source src="../edit3.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="../edit3.mp4" download>here</a>.
                         </video>
                     </div>
                 </div>
@@ -976,9 +1055,9 @@
                     </div>
                     <div class="gift-label">Gift 4</div>
                     <div class="gift-content">
-                        <video class="gift-video" controls preload="metadata">
-                            <source src="edit4.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Download <a href="edit4.mp4" download>edit4.mp4</a>.
+                        <video class="gift-video" controls preload="auto" playsinline>
+                            <source src="../edit4.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="../edit4.mp4" download>here</a>.
                         </video>
                     </div>
                 </div>
@@ -988,9 +1067,9 @@
                     </div>
                     <div class="gift-label">Gift 5</div>
                     <div class="gift-content">
-                        <video class="gift-video" controls preload="metadata">
-                            <source src="edit5.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Download <a href="edit5.mp4" download>edit5.mp4</a>.
+                        <video class="gift-video" controls preload="auto" playsinline>
+                            <source src="../edit5.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="../edit5.mp4" download>here</a>.
                         </video>
                     </div>
                 </div>
@@ -1000,25 +1079,28 @@
                     </div>
                     <div class="gift-label">Gift 6</div>
                     <div class="gift-content">
-                        <video class="gift-video" controls preload="metadata">
-                            <source src="edit6.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Download <a href="edit6.mp4" download>edit6.mp4</a>.
+                        <video class="gift-video" controls preload="auto" playsinline>
+                            <source src="../edit6.mp4" type="video/mp4">
+                            Your browser does not support the video tag. You can download the video <a href="../edit6.mp4" download>here</a>.
                         </video>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- MORE COMING SOON SECTION -->
-        <div class="more-coming" id="moreComingSoon" aria-live="polite">
-            <div class="typewriter">
-                <div class="typewriter-text">More coming soon — till then, miss me ..........</div>
+        <!-- MESSAGE SECTION -->
+        <div class="message-section" id="messageSection">
+            <h2>A Message For You 💛</h2>
+            <div class="message-from-me">
+                <h3>From Abhimanyu:</h3>
+                <div class="message-text">
+                    <div class="message-placeholder">paragraph loading soon</div>
+                </div>
             </div>
-            <p class="more-apology">And i'm really very sorry mani ik these are not gifts these are so pyaare pyaare edits but now take these as a gift and yeah wait till new year and yeah game khelo badiya i miss you so much</p>
         </div>
 
         <!-- GAME SECTION -->
-        <div class="game-container" id="gameContainer" aria-hidden="true">
+        <div class="game-container" id="gameContainer">
             <div class="game-header">
                 <h2>Whack-a-Abhimanyu! 🔨💛</h2>
                 <div class="game-stats">
@@ -1027,51 +1109,51 @@
                 </div>
                 <div class="game-message" id="gameMessage">Click on Abhimanyu when he pops up! 😋</div>
             </div>
-
+            
             <div class="game-board" id="gameBoard">
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
                 <div class="hole">
                     <div class="mole" onclick="whackMole(this)">
-                        <img src="abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
+                        <img src="../abhimanyu.jpeg" class="mole-image" alt="Abhimanyu">
                     </div>
                 </div>
             </div>
@@ -1083,6 +1165,12 @@
                 <button class="play-again-btn" onclick="resetGame()">Play Again! 😋</button>
             </div>
         </div>
+    </div>
+
+    <!-- CELEBRATION OVERLAY -->
+    <div class="celebration-overlay" id="celebrationOverlay"></div>
+    <div class="celebration-message" id="celebrationMessage">
+        <h1>Happy New Year 2026! 🎆💛</h1>
     </div>
 
     <script>
@@ -1196,11 +1284,11 @@
                         }, 100);
                     }, 4000);
 
-                    // Show more coming soon section after gifts
+                    // Show message after 6 seconds
                     setTimeout(() => {
-                        document.getElementById('moreComingSoon').classList.add('show');
+                        document.getElementById('messageSection').classList.add('show');
                         setTimeout(() => {
-                            document.getElementById('moreComingSoon').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            document.getElementById('messageSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }, 100);
                     }, 6000);
                 }, 1500);
@@ -1267,11 +1355,98 @@
                     document.getElementById('hours').textContent = '00';
                     document.getElementById('minutes').textContent = '00';
                     document.getElementById('seconds').textContent = '00';
+                    
+                    // TRIGGER CELEBRATION!
+                    triggerCelebration();
                 }
             }
 
             updateCountdown();
             const countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // CELEBRATION ANIMATION FUNCTION
+        function triggerCelebration() {
+            const overlay = document.getElementById('celebrationOverlay');
+            const message = document.getElementById('celebrationMessage');
+            
+            overlay.classList.add('active');
+            message.classList.add('show');
+            
+            // Create fireworks
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    createFirework();
+                }, i * 200);
+            }
+            
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 30);
+            }
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 5000);
+            
+            // Keep fireworks and confetti going for 10 seconds
+            const celebrationInterval = setInterval(() => {
+                createFirework();
+                for (let i = 0; i < 5; i++) {
+                    createConfetti();
+                }
+            }, 500);
+            
+            setTimeout(() => {
+                clearInterval(celebrationInterval);
+                overlay.classList.remove('active');
+            }, 10000);
+        }
+
+        function createFirework() {
+            const colors = ['#feca57', '#ff9ff3', '#ff6b6b', '#a29bfe', '#fd79a8', '#fdcb6e'];
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * (window.innerHeight * 0.7);
+            
+            for (let i = 0; i < 30; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = (i / 30) * Math.PI * 2;
+                const distance = 50 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                firework.style.setProperty('--tx', tx + 'px');
+                firework.style.setProperty('--ty', ty + 'px');
+                
+                document.getElementById('celebrationOverlay').appendChild(firework);
+                
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#feca57', '#ff9ff3', '#ff6b6b', '#a29bfe', '#fd79a8', '#fdcb6e'];
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = '-10px';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = (5 + Math.random() * 10) + 'px';
+            confetti.style.height = confetti.style.width;
+            confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            
+            document.getElementById('celebrationOverlay').appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 4000);
         }
 
         // Create floating background hearts
@@ -1301,37 +1476,32 @@
         let isGameActive = false;
 
         function startGame() {
-            // Prevent duplicate starts and clear any existing intervals
-            if (isGameActive) return;
-            try { clearInterval(gameInterval); } catch (e) {}
-            try { clearInterval(moleInterval); } catch (e) {}
-            isGameActive = true;
-
             document.getElementById('gameContainer').classList.add('show');
             document.getElementById('gameContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
             
             // Reset game
             score = 0;
             timeLeft = 30;
-             document.getElementById('score').textContent = score;
-             document.getElementById('timer').textContent = timeLeft;
-             document.getElementById('gameMessage').textContent = "Click on Abhimanyu when he pops up! 😋";
-             document.getElementById('gameBoard').style.display = 'grid';
-             document.getElementById('gameOver').classList.remove('show');
-             
-             // Start timer
-             gameInterval = setInterval(() => {
-                 timeLeft--;
-                 document.getElementById('timer').textContent = timeLeft;
-                 
-                 if (timeLeft <= 0) {
-                     endGame();
-                 }
-             }, 1000);
-             
-             // Start popping moles
-             popRandomMole();
-             moleInterval = setInterval(popRandomMole, 1100);
+            isGameActive = true;
+            document.getElementById('score').textContent = score;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('gameMessage').textContent = "Click on Abhimanyu when he pops up! 😋";
+            document.getElementById('gameBoard').style.display = 'grid';
+            document.getElementById('gameOver').classList.remove('show');
+            
+            // Start timer
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+            
+            // Start popping moles
+            popRandomMole();
+            moleInterval = setInterval(popRandomMole, 1100);
         }
 
         function popRandomMole() {
@@ -1425,11 +1595,7 @@
             // Pause any other gift videos so only the selected one plays
             document.querySelectorAll('.gift-video').forEach(v => {
                 if (!giftBox.contains(v)) {
-                    try {
-                        v.pause();
-                        v.currentTime = 0;
-                        v.muted = false; // reset mute state for other videos
-                    } catch (e) {}
+                    try { v.pause(); v.currentTime = 0; v.muted = false; } catch (e) {}
                 }
             });
 
@@ -1444,31 +1610,7 @@
             const content = giftBox.querySelector('.gift-content');
             const video = content ? content.querySelector('.gift-video') : null;
 
-            // Attempt to start playback immediately (within the click handler so it's a user gesture)
-            if (video) {
-                video.setAttribute('playsinline', '');
-                if (!video.getAttribute('preload') || video.getAttribute('preload') === 'metadata') {
-                    video.setAttribute('preload', 'auto');
-                    video.preload = 'auto';
-                }
-                try { video.load(); } catch (e) {}
-
-                try {
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(() => {
-                            // If blocked, mute and retry immediately
-                            video.muted = true;
-                            video.play().catch(() => {});
-                        });
-                    }
-                } catch (e) {
-                    // synchronous failure, try mute + play
-                    try { video.muted = true; video.play().catch(() => {}); } catch (e) {}
-                }
-            }
-
-            // Show content after unwrap animation and retry play once visible
+            // Show content after unwrap animation and attempt autoplay (with mute fallback)
             setTimeout(() => {
                 if (content) {
                     content.classList.add('show');
@@ -1476,38 +1618,50 @@
                         content.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 100);
 
-                    if (video && video.paused) {
-                        const retry = video.play();
-                        if (retry !== undefined) {
-                            retry.catch(() => {
-                                video.muted = true;
-                                video.play().catch(() => {});
-                            });
+                    if (video) {
+                        video.setAttribute('playsinline', '');
+                        if (!video.getAttribute('preload') || video.getAttribute('preload') === 'metadata') {
+                            video.setAttribute('preload', 'auto');
+                            video.preload = 'auto';
+                        }
+                        try { video.load(); } catch (e) {}
+
+                        try {
+                            const playPromise = video.play();
+                            if (playPromise !== undefined) {
+                                playPromise.catch(() => {
+                                    // If blocked by browser, mute and retry
+                                    video.muted = true;
+                                    video.play().catch(() => {});
+                                });
+                            }
+                        } catch (e) {
+                            try { video.muted = true; video.play().catch(() => {}); } catch (e) {}
                         }
                     }
                 }
-            }, 800);
+             }, 800);
         }
 
-        function createGiftSparkle(parent, index) {
+        // CREATE SPARKLE EFFECT FOR GIFTS
+        function createGiftSparkle(giftBox, index) {
             const sparkle = document.createElement('div');
-            sparkle.style.position = 'fixed';
-            sparkle.style.width = '12px';
-            sparkle.style.height = '12px';
+            sparkle.style.position = 'absolute';
+            sparkle.style.width = '10px';
+            sparkle.style.height = '10px';
             sparkle.style.background = '#feca57';
             sparkle.style.borderRadius = '50%';
             sparkle.style.pointerEvents = 'none';
-            sparkle.style.zIndex = '10000';
-            sparkle.style.boxShadow = '0 0 10px #feca57';
             
-            const rect = parent.querySelector('.gift-wrap').getBoundingClientRect();
+            const rect = giftBox.getBoundingClientRect();
             sparkle.style.left = rect.left + rect.width / 2 + 'px';
             sparkle.style.top = rect.top + rect.height / 2 + 'px';
+            sparkle.style.zIndex = '1000';
             
             document.body.appendChild(sparkle);
             
             const angle = (index / 12) * Math.PI * 2;
-            const distance = 80 + Math.random() * 40;
+            const distance = 80;
             const tx = Math.cos(angle) * distance;
             const ty = Math.sin(angle) * distance;
             
@@ -1515,58 +1669,11 @@
                 { transform: 'translate(0, 0) scale(1)', opacity: 1 },
                 { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
             ], {
-                duration: 1000,
+                duration: 800,
                 easing: 'ease-out'
             });
             
-            setTimeout(() => sparkle.remove(), 1000);
-        }
-
-        // Ensure gift videos are prepared for autoplay
-        document.querySelectorAll('.gift-video').forEach(video => {
-            video.setAttribute('playsinline', '');
-            if (!video.getAttribute('preload') || video.getAttribute('preload') === 'metadata') {
-                video.setAttribute('preload', 'auto');
-                video.preload = 'auto';
-            }
-        });
-
-        // Ensure play button is reliably hooked (handles cases where inline handlers fail)
-        const playBtn = document.getElementById('playGameBtn');
-        if (playBtn) {
-            playBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Prefer the defined startGame, but fallback to a safe initializer if it's missing
-                if (typeof startGame === 'function') {
-                    try { startGame(); } catch (err) {
-                        console.error('startGame error', err);
-                        fallbackStartGame();
-                    }
-                } else {
-                    console.warn('startGame not defined, using fallback');
-                    fallbackStartGame();
-                }
-            });
-        }
-
-        function fallbackStartGame() {
-            try {
-                clearInterval(gameInterval);
-                clearInterval(moleInterval);
-            } catch (e) {}
-            document.getElementById('gameContainer').classList.add('show');
-            document.getElementById('gameBoard').style.display = 'grid';
-            score = 0; timeLeft = 30; isGameActive = true;
-            document.getElementById('score').textContent = score;
-            document.getElementById('timer').textContent = timeLeft;
-            document.getElementById('gameOver').classList.remove('show');
-            gameInterval = setInterval(() => {
-                timeLeft--;
-                document.getElementById('timer').textContent = timeLeft;
-                if (timeLeft <= 0) endGame();
-            }, 1000);
-            popRandomMole();
-            moleInterval = setInterval(popRandomMole, 1100);
+            setTimeout(() => sparkle.remove(), 800);
         }
     </script>
 </body>
